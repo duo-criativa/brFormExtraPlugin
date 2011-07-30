@@ -624,6 +624,40 @@ Evidentemente, é preciso limpar o cache.
 
     php symfony clear:cache
 
+
+### sfWidgetFormChoiceCidadeBR , sfValidatorChoiceCidadeBR ###
+
+- **sfWidgetFormChoiceCidadeBR**:
+  Renderiza dois SELECT um com a lista de estados (UFs - Unidades da Federação) brasileiros e outro com a lista das respectivas cidades.
+  A atualização do SELECT da cidade é feita via AJAX. A tabela de cidades está incluída no plugin.
+
+- **sfValidatorChoiceCidadeBR**:
+  Valida a cidade escolhida
+
+OBS: Em seus modelos crie uma relação com a tabela cidade da seguinte forma.
+
+    Cliente:
+      columns:
+        nome: { type: string(80), notnull: true }
+        cidade_id: { type: integer }
+      relations:
+        Cidade:
+          class: CidadeBr
+          local: cidade_id
+
+**Exemplo 1**
+
+    <?php
+      $form->setWidget("cidade_id", new sfWidgetFormChoiceCidadeBR(array("cidade_add_empty"=>"Escolha a cidade")));
+      $form->getWidgetSchema()->setLabel("cidade_id", "Município");
+      $form->setValidator("cidade_id", new sfValidatorChoiceCidadeBR());
+    ?>
+    <p>
+      <?php echo $form["cidade_id"]->renderError() ?>
+      <?php echo $form["cidade_id"]->renderLabel() ?>
+      <?php echo $form["cidade_id"] ?>
+    </p>
+
 ## Demonstração ##
 
 Habilite a demonstração editando o arquivo `apps/SUA_APLICACAO/config/settings.yml` e

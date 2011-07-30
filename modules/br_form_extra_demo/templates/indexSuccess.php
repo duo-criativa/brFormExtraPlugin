@@ -472,6 +472,16 @@ all:
 ");?>
 </pre>
 
+<h2>sfWidgetFormChoiceUFBR , sfValidatorChoiceCidadeBR</h2>
+
+<h3>Exemplo</h3>
+
+<p>
+  <?php echo $form["cidade_id"]->renderError() ?>
+  <?php echo $form["cidade_id"]->renderLabel() ?>
+  <?php echo $form["cidade_id"] ?>
+</p>
+
 <br/><br/>
 
 <p><button type="submit">Enviar</button></p>

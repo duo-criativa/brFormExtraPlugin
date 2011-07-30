@@ -80,6 +80,10 @@ class br_form_extra_demoActions extends Basebr_form_extra_demoActions
       ));
     //$f = new sfForm;
 
+    $this->form->setWidget("cidade_id", new sfWidgetFormChoiceCidadeBR(array("cidade_add_empty"=>"Escolha a cidade")));
+    $this->form->getWidgetSchema()->setLabel("cidade_id", "Município");
+    $this->form->setValidator("cidade_id", new sfValidatorChoiceCidadeBR());
+
     $this->form->getWidgetSchema()->setNameFormat('demo[%s]');
 
     if ($request->isMethod('post'))
