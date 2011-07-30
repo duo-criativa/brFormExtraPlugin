@@ -1,0 +1,5 @@
+br_form_extra_plugin_cidades_br_json:
+  url: /br_form_extra_plugin/ajax/cidadesbr.json
+  param: { module: br_cidade, action: index }
+  requirements:
+    sf_method: [get]
