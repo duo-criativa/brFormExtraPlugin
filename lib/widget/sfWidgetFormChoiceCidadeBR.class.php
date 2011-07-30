@@ -232,7 +232,7 @@ EOF
       "MT" => "Mato Grosso",
       "PA" => "Pará",
       "PB" => "Paraíba",
-      "PR" => "Paraná;",
+      "PR" => "Paraná",
       "PE" => "Pernambuco",
       "PI" => "Piauí",
       "RJ" => "Rio de Janeiro",
