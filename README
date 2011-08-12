@@ -402,12 +402,14 @@ não precisa ser enviado, é recuperado automaticamente se não informado.
 - max
 
 
-### sfWidgetFormInputCep , sfValidatorCep ###
+### sfWidgetFormInputCep , sfValidatorCep , sfValidatorSoftCep ###
 
 - **sfWidgetFormInputCep**:
   Input com busca de CEP
 - **sfValidatorCep**:
   Valida CEP remotamente
+- **sfValidatorSoftCep**:
+  Valida o CEP (modo soft, somente garante que o conteúdo se trata de 8 digitos)
 
 Utiliza ou o serviço do site CEPLivre (<http://republicavirtual.com.br/cep/> - aparentemente mais atualizado)
 ou do site Republica Virtual (<http://ceplivre.pc2consultoria.com/index.php>).
@@ -657,6 +659,17 @@ OBS: Em seus modelos crie uma relação com a tabela cidade da seguinte forma.
       <?php echo $form["cidade_id"]->renderLabel() ?>
       <?php echo $form["cidade_id"] ?>
     </p>
+
+### sfValidatorDDD , sfValidatorTelefone ###
+
+- **sfValidatorDDD**:
+
+  Garante que o campo tem um DDD válido.
+
+- **sfValidatorTelefone**
+
+  Garante que o campo tem um telefone válido no formato (19)9999-9999. Depende do sfValidatorDDD .
+
 
 ## Demonstração ##
 
