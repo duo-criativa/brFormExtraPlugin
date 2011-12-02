@@ -48,7 +48,11 @@ class sfValidatorCpfCnpj extends sfValidatorString
    */
   protected function doClean($value)
   {
-    $clean = (string) $value;
+    if(is_array($value) && isset($value['text'])){ // isso acontece qdo utiliza-se em FormFilters
+        $clean = (string) $value['text'];
+    } else {
+        $clean = (string) $value;
+    }
     $length = function_exists('mb_strlen') ? mb_strlen($clean, $this->getCharset()) : strlen($clean);
 
     switch ($this->getOption('type')) {
