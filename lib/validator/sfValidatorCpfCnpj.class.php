@@ -58,16 +58,16 @@ class sfValidatorCpfCnpj extends sfValidatorString
     switch ($this->getOption('type')) {
 
       case 'cnpj':
-        if (!$this->checkCNPJ($value)) throw new sfValidatorError($this, 'invalid');
+        if (!$this->checkCNPJ($clean)) throw new sfValidatorError($this, 'invalid');
         break;
 
       case 'cpf':
-        if (!$this->checkCPF($value)) throw new sfValidatorError($this, 'invalid');
+        if (!$this->checkCPF($clean)) throw new sfValidatorError($this, 'invalid');
         break;
 
       case 'cpfcnpj':
       default:
-        if (!($this->checkCPF($value) || $this->checkCNPJ($value))) throw new sfValidatorError($this, 'invalid');
+        if (!($this->checkCPF($clean) || $this->checkCNPJ($clean))) throw new sfValidatorError($this, 'invalid');
         break;
 
     }
