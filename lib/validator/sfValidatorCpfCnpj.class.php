@@ -48,26 +48,30 @@ class sfValidatorCpfCnpj extends sfValidatorString
    */
   protected function doClean($value)
   {
+    $is_form_filter = false;
     if(is_array($value) && isset($value['text'])){ // isso acontece qdo utiliza-se em FormFilters
         $clean = (string) $value['text'];
+        $is_form_filter = true;
     } else {
         $clean = (string) $value;
     }
     $length = function_exists('mb_strlen') ? mb_strlen($clean, $this->getCharset()) : strlen($clean);
 
+    $is_valid_cpf = $this->checkCPF($clean);
+    $is_valid_cnpj = $this->checkCNPJ($clean);
     switch ($this->getOption('type')) {
 
       case 'cnpj':
-        if (!$this->checkCNPJ($clean)) throw new sfValidatorError($this, 'invalid');
+        if (!$is_valid_cnpj) throw new sfValidatorError($this, 'invalid');
         break;
 
       case 'cpf':
-        if (!$this->checkCPF($clean)) throw new sfValidatorError($this, 'invalid');
+        if (!$is_valid_cpf) throw new sfValidatorError($this, 'invalid');
         break;
 
       case 'cpfcnpj':
       default:
-        if (!($this->checkCPF($clean) || $this->checkCNPJ($clean))) throw new sfValidatorError($this, 'invalid');
+        if (!($is_valid_cpf || $is_valid_cnpj)) throw new sfValidatorError($this, 'invalid');
         break;
 
     }
@@ -79,11 +83,14 @@ class sfValidatorCpfCnpj extends sfValidatorString
 
     } else {
 
-      if(strlen($clean) == 14 && $this->getOption('use_cnpj_with_15_chars'))
+      $clean = $this->valueClean($clean);
+
+      if($is_valid_cnpj && strlen($clean) == 14 && $this->getOption('use_cnpj_with_15_chars'))
 	    {
 	      $clean =  '0' . $clean;
 	    }
-      
+
+      if($is_form_filter) return array('text'=>$clean);
       return $clean;
 
     }
