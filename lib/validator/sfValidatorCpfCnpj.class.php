@@ -55,6 +55,9 @@ class sfValidatorCpfCnpj extends sfValidatorString
     } else {
         $clean = (string) $value;
     }
+
+    if($clean=='' && $this->getOption('required')==false) return $value;
+
     $length = function_exists('mb_strlen') ? mb_strlen($clean, $this->getCharset()) : strlen($clean);
 
     $is_valid_cpf = $this->checkCPF($clean);
